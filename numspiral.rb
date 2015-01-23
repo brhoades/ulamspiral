@@ -2,8 +2,8 @@ require 'rubygems'
 require 'rmagick'
 require 'prime'
 
-width = 2048
-height = 2048
+width = ARGV[0].to_i
+height = ARGV[1].to_i
 img = Magick::Image.new(width, height)
 x = width/2-1
 y = height/2-1
