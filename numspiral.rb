@@ -14,34 +14,34 @@ timesatlen = 1
 dir = "r"
 i = 1 
 
+turn = {"l" => "d", "d" => "r", "u" => "l", "r" => "u"}
+
 while true
   break if x > width or x < 0
   break if y > height or y < 0
+
   if Prime.prime? i 
     img.pixel_color(x, y, "rgb(0,0,0)")
   end
-  #print "#{i}\t"
+
   i += 1
+  leniter -= 1
 
   # Move
-  leniter -= 1
-  x += 1 if dir == "r" 
-  x -= 1 if dir == "l"
-  y += 1 if dir == "u"
-  y -= 1 if dir == "d"
+	case dir
+	when "r"
+		x += 1
+	when "l"
+		x -= 1
+	when "u"
+		y += 1
+	when "d"
+		y -= 1
+	end
 
   # Direction handling
   if leniter == 0
-    #print "^\n"
-    if dir == "l"
-      dir = "d"
-    elsif dir == "d"
-      dir = "r"
-    elsif dir == "u"
-      dir = "l"
-    elsif dir == "r"
-      dir = "u"
-    end
+		dir = turn[dir]
 
     # Resetting and moving again properly
     leniter = lensize
