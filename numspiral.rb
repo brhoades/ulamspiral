@@ -1,6 +1,10 @@
 require 'rubygems'
 require 'rmagick'
 require 'prime'
+require 'ruby-prof'
+
+# Profile the code
+RubyProf.start
 
 width = ARGV[0].to_i
 height = ARGV[1].to_i
@@ -20,7 +24,7 @@ while true
   break if x > width or x < 0
   break if y > height or y < 0
 
-  if Prime.prime? i 
+  if i % 2 and Prime.prime? i 
     img.pixel_color(x, y, "rgb(0,0,0)")
   end
 
@@ -56,3 +60,9 @@ while true
 end
 
 img.write("demo-#{width}x#{height}.bmp")
+
+res = RubyProf.stop
+
+File.open "profiling/profile_#{Time.now}", 'w' do |file|
+  printer = RubyProf::CallTreePrinter.new( res ).print( file )
+end
