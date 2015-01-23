@@ -6,6 +6,8 @@ width = ARGV[0].to_i
 height = ARGV[1].to_i
 
 img = Magick::Image.new(width, height)
+img.format = 'png'
+
 x = width/2-1
 y = height/2-1
 
@@ -74,5 +76,5 @@ end
 print "DONE\n"
 
 print "Writing image: "
-img.write("demo-#{width}x#{height}.bmp")
+img.write("demo-#{width}x#{height}.png") { self.quality = 9 }
 print "DONE\n"
